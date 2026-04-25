@@ -1,161 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amazon Gift Card</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Shopper Opportunity</title>
+    <!-- Google Fonts: Poppins for a modern, high-converting look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --amazon-orange: #FF9900;
+            --amazon-navy: #232F3E;
+            --amazon-light-blue: #007185;
+            --bg-gray: #f3f3f3;
+            --tiktok-gray: #777777;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: linear-gradient(135deg,#f5f5f5,#e6e6e6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
 
-/* CARD */
-.container {
-    background: white;
-    width: 360px;
-    border-radius: 20px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    animation: fadeIn 0.8s ease;
-}
+        body {
+            background-color: #1a1a1a; /* Dark background for desktop focus */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
 
-/* LOGO */
-.logo {
-    font-size: 30px;
-    font-weight: bold;
-}
-.logo span {
-    color: #ff9900;
-}
+        /* Mobile Container */
+        .page-wrapper {
+            width: 100%;
+            max-width: 480px;
+            background: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            padding-bottom: 40px;
+            overflow-x: hidden;
+        }
 
-/* MONEY */
-.amount {
-    font-size: 45px;
-    color: #ff9900;
-    margin: 20px 0 5px;
-    font-weight: bold;
-}
+        /* Top Sticky Banner */
+        .top-banner {
+            background: linear-gradient(90deg, #FF9900, #ffb347);
+            color: #000;
+            text-align: center;
+            padding: 8px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            text-transform: uppercase;
+        }
 
-/* TIMER */
-.timer {
-    background: #fff3e6;
-    color: #ff6600;
-    padding: 12px;
-    border-radius: 12px;
-    margin: 15px 0;
-    font-weight: bold;
-}
+        /* Amazon Style Header */
+        .amazon-header {
+            background-color: var(--amazon-navy);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-/* STEPS */
-.step {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-    text-align: left;
-}
-.circle {
-    background: #ff9900;
-    color: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    text-align: center;
-    margin-right: 10px;
-}
+        .amazon-logo {
+            height: 30px;
+            filter: brightness(0) invert(1); /* Makes logo white */
+        }
 
-/* BUTTON */
-.btn {
-    background: linear-gradient(90deg,#ff9900,#ff6600);
-    color: white;
-    padding: 16px;
-    border-radius: 30px;
-    margin-top: 20px;
-    display: block;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    transition: 0.3s;
-}
-.btn:hover {
-    transform: scale(1.05);
-}
+        /* Hero Image Section */
+        .hero-container {
+            position: relative;
+            width: 100%;
+        }
 
-/* NOTIFICATION */
-.popup {
-    position: fixed;
-    top: 20px;
-    background: white;
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    font-size: 14px;
-    animation: slideDown 0.5s;
-}
+        .hero-img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            display: block;
+        }
 
-/* ANIMATIONS */
-@keyframes fadeIn {
-    from {opacity:0; transform: translateY(20px);}
-    to {opacity:1;}
-}
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
 
-@keyframes slideDown {
-    from {transform: translateY(-20px); opacity:0;}
-    to {transform: translateY(0); opacity:1;}
-}
-</style>
+        .eyebrow {
+            color: var(--amazon-light-blue);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            color: var(--amazon-navy);
+        }
+
+        .subheadline {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* Scarcity Progress Bar */
+        .status-card {
+            background: #f7f7f7;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .status-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .live-indicator {
+            height: 8px;
+            width: 8px;
+            background-color: #d9534f;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.2;} 100% {opacity: 1;} }
+
+        .bar-bg {
+            width: 100%;
+            height: 14px;
+            background: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            width: 85%;
+            height: 100%;
+            background: var(--amazon-orange);
+            transition: width 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Urgency Timer */
+        .timer-box {
+            color: #cc0c39;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* High-Contrast CTA Button */
+        .amazon-btn {
+            display: block;
+            background: #FF9900;
+            background: linear-gradient(to bottom, #f7dfa5, #f0c14b); /* classic amazon button look */
+            border: 1px solid #a88734;
+            color: #111;
+            text-decoration: none;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+            50% { transform: scale(1.03); box-shadow: 0 10px 20px rgba(255, 153, 0, 0.3); }
+            100% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        }
+
+        /* TikTok Comments */
+        .social-proof {
+            text-align: left;
+            margin-top: 35px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .comment-header {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .comment {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .user-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .comment-body {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .comment-msg {
+            font-size: 0.85rem;
+            color: #222;
+            line-height: 1.4;
+        }
+
+        .comment-footer {
+            font-size: 0.75rem;
+            color: var(--tiktok-gray);
+            margin-top: 4px;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Disclaimer */
+        .footer-legal {
+            font-size: 0.65rem;
+            color: #aaa;
+            padding: 30px 20px;
+            line-height: 1.4;
+            text-align: center;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="popup" id="popup">🔥 John just claimed $750</div>
+<div class="page-wrapper">
+    <!-- Sticky Top Banner -->
+    <div class="top-banner">✨ TikTok Exclusive Opportunity ✨</div>
 
-<div class="container">
+    <!-- Amazon Nav Bar (Fake for Trust) -->
+    <div class="amazon-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="amazon-logo">
+    </div>
 
-    <div class="logo">amazon<span>.gift</span></div>
+    <!-- Hero Image (Amazon Boxes/Shopping) -->
+    <div class="hero-container">
+        <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=800&q=80" alt="Amazon Haul" class="hero-img">
+    </div>
 
-    <div class="amount">$750</div>
-    <div>Amazon Gift Card</div>
+    <div class="content">
+        <span class="eyebrow">Hey Bestie 📦</span>
+        <h1>Claim Your $750 Amazon Haul!</h1>
+        <p class="subheadline">
+            We are looking for product reviewers to test out the most viral Amazon gadgets. Register today to receive a <b>$750 Amazon Gift Card</b> to spend on anything you want!
+        </p>
 
-    <div class="timer">⏳ Offer expires in <span id="countdown">15:00</span></div>
+        <!-- Scarcity / Progress -->
+        <div class="status-card">
+            <div class="status-text">
+                <span class="live-indicator"></span> Spots Remaining: <span id="percent-val">85%</span> Full
+            </div>
+            <div class="bar-bg">
+                <div class="bar-fill" id="progress-bar"></div>
+            </div>
+        </div>
 
-    <div class="step"><div class="circle">1</div> Click The Button</div>
-    <div class="step"><div class="circle">2</div> Enter Your Info</div>
-    <div class="step"><div class="circle">3</div> Complete Offers</div>
-    <div class="step"><div class="circle">4</div> Claim Reward</div>
+        <!-- Timer -->
+        <div class="timer-box">
+            Offer Expires: <span id="timer">04:59</span>
+        </div>
 
-    <!-- الرابط ديالك -->
-    <a href="https://giftclick.org/aff_c?offer_id=144&aff_id=178108" class="btn">
-        CLAIM YOUR REWARD NOW
-    </a>
+        <!-- CALL TO ACTION -->
+        <a href="https://linkthem.net/aff_c?offer_id=2224&aff_id=178108" class="amazon-btn">
+            CLAIM MY $750 TO SPEND 💳
+        </a>
 
+        <!-- TikTok Style Comments -->
+        <div class="social-proof">
+            <p class="comment-header">Comments (432)</p>
+
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="user-img" alt="avatar">
+                <div class="comment-body">
+                    <div class="user-name">alexis.vibe</div>
+                    <p class="comment-msg">bro i thought it was fake but i just got my balance loaded!! buying my dorm room stuff now 😭🙏</p>
+                    <div class="comment-footer"><span>3h ago</span> <span>Reply</span> <span><b>1.4k likes</b></span></div>
+                </div>
+            </div>
+
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" class="user-img" alt="avatar">
+                <div class="comment-body">
+                    <div class="user-name">itzy.jacob</div>
+                    <p class="comment-msg">If you see this on your fyp it's a sign lol. took like 4 minutes to finish.</p>
+                    <div class="comment-footer"><span>1h ago</span> <span>Reply</span> <span><b>942 likes</b></span></div>
+                </div>
+            </div>
+
+            <div class="comment">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&h=100&fit=crop" class="user-img" alt="avatar">
+                <div class="comment-body">
+                    <div class="user-name">sarah.styles</div>
+                    <p class="comment-msg">Wait is there a deadline? I need to tell my sister ASAP</p>
+                    <div class="comment-footer"><span>22m ago</span> <span>Reply</span> <span><b>156 likes</b></span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-legal">
+            *This is an independent rewards program and not affiliated with Amazon.com, Inc. Trademarks are property of their respective owners. Participation in third-party marketing surveys/offers is required to receive the reward.
+        </div>
+    </div>
 </div>
 
 <script>
-// Countdown
-let time = 900;
-let countdown = document.getElementById("countdown");
+    // 1. SCARCITY BAR LOGIC
+    // After 3 seconds, jump the progress bar to create urgency
+    setTimeout(() => {
+        const bar = document.getElementById('progress-bar');
+        const text = document.getElementById('percent-val');
+        bar.style.width = '94%';
+        text.innerText = '94%';
+        text.style.color = '#cc0c39';
+    }, 3000);
 
-setInterval(() => {
-    let min = Math.floor(time / 60);
-    let sec = time % 60;
-    countdown.innerHTML = ${min}:${sec < 10 ? "0"+sec : sec};
-    if(time > 0) time--;
-}, 1000);
+    // 2. COUNTDOWN TIMER LOGIC
+    function startTimer(duration, display) {
+        let timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
 
-// Fake notifications
-let names = ["John","Emma","Michael","Sarah","David","Anna"];
-setInterval(()=>{
-    let randomName = names[Math.floor(Math.random()*names.length)];
-    document.getElementById("popup").innerHTML = "🔥 " + randomName + " just claimed $750";
-},5000);
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = 0;
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        let startTime = 60 * 4 + 59; // 04:59
+        let display = document.querySelector('#timer');
+        startTimer(startTime, display);
+    };
 </script>
 
 </body>
