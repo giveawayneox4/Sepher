@@ -3,167 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beauty Access Offer</title>
+<title>Amazon Gift Card</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#fff;
-    color:#111;
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg,#f5f5f5,#e6e6e6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.container{
-    max-width:420px;
-    margin:auto;
-    padding:20px;
+/* CARD */
+.container {
+    background: white;
+    width: 360px;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    animation: fadeIn 0.8s ease;
 }
 
-.header{
-    text-align:center;
-    font-size:12px;
-    font-weight:bold;
-    letter-spacing:1px;
-    padding:12px;
-    border-bottom:1px solid #eee;
+/* LOGO */
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+}
+.logo span {
+    color: #ff9900;
 }
 
-h1{
-    font-size:24px;
-    text-align:center;
-    margin-top:20px;
-}
-
-.subtitle{
-    text-align:center;
-    color:#555;
-    font-size:14px;
-    margin-bottom:10px;
-}
-
-/* SOCIAL PROOF */
-.badge-box{
-    background:#f7f7f7;
-    padding:10px;
-    border-radius:10px;
-    text-align:center;
-    font-size:12px;
-    margin:10px 0;
+/* MONEY */
+.amount {
+    font-size: 45px;
+    color: #ff9900;
+    margin: 20px 0 5px;
+    font-weight: bold;
 }
 
 /* TIMER */
-.timer{
-    text-align:center;
-    border:1px solid #000;
-    padding:10px;
-    margin:15px 0;
-    font-weight:bold;
-}
-
-/* IMAGE */
-img{
-    width:100%;
-    border-radius:12px;
-    margin:15px 0;
+.timer {
+    background: #fff3e6;
+    color: #ff6600;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 15px 0;
+    font-weight: bold;
 }
 
 /* STEPS */
-.step{
-    font-size:14px;
-    padding:6px 0;
+.step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    text-align: left;
+}
+.circle {
+    background: #ff9900;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 10px;
 }
 
-/* CTA */
-.button{
-    display:block;
-    background:#000;
-    color:#fff;
-    text-align:center;
-    padding:15px;
-    text-decoration:none;
-    border-radius:8px;
-    font-weight:bold;
-    margin-top:20px;
+/* BUTTON */
+.btn {
+    background: linear-gradient(90deg,#ff9900,#ff6600);
+    color: white;
+    padding: 16px;
+    border-radius: 30px;
+    margin-top: 20px;
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.3s;
+}
+.btn:hover {
+    transform: scale(1.05);
 }
 
-.button:hover{
-    background:#222;
+/* NOTIFICATION */
+.popup {
+    position: fixed;
+    top: 20px;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    font-size: 14px;
+    animation: slideDown 0.5s;
 }
 
-/* COMMENTS */
-.comment{
-    background:#f5f5f5;
-    padding:10px;
-    border-radius:8px;
-    font-size:12px;
-    margin-top:8px;
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1;}
 }
 
-/* NOTE */
-.note{
-    font-size:11px;
-    color:#777;
-    text-align:center;
-    margin-top:10px;
+@keyframes slideDown {
+    from {transform: translateY(-20px); opacity:0;}
+    to {transform: translateY(0); opacity:1;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-EXCLUSIVE PARTNER ACCESS
-</div>
+<div class="popup" id="popup">🔥 John just claimed $750</div>
 
 <div class="container">
 
-<h1>Users Are Getting Access to $100 Beauty Rewards</h1>
+    <div class="logo">amazon<span>.gift</span></div>
 
-<p class="subtitle">
-Simple partner steps required to unlock limited beauty offers
-</p>
+    <div class="amount">$750</div>
+    <div>Amazon Gift Card</div>
 
-<div class="badge-box">
-🔥 1,284 users started today • Limited availability
-</div>
+    <div class="timer">⏳ Offer expires in <span id="countdown">15:00</span></div>
 
-<div class="timer">
-⏳ Offer closes in: <span id="countdown">08:00</span>
-</div>
+    <div class="step"><div class="circle">1</div> Click The Button</div>
+    <div class="step"><div class="circle">2</div> Enter Your Info</div>
+    <div class="step"><div class="circle">3</div> Complete Offers</div>
+    <div class="step"><div class="circle">4</div> Claim Reward</div>
 
-<img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348">
-
-<div class="step">✔ Step 1: Start the process</div>
-<div class="step">✔ Step 2: Complete partner offers</div>
-<div class="step">✔ Step 3: Submit entry</div>
-<div class="step">✔ Step 4: Unlock access</div>
-
-<a class="button" href="https://linkthem.net/aff_c?offer_id=346&aff_id=178108">
-CONTINUE
-</a>
-
-<div class="comment">⭐ “I completed it in under 2 minutes”</div>
-<div class="comment">⭐ “Looks legit, very simple process”</div>
-<div class="comment">⭐ “Got access instantly after steps”</div>
-
-<p class="note">
-Promotional partner offer. Third-party actions may be required.
-</p>
+    <!-- الرابط ديالك -->
+    <a href="https://giftclick.org/aff_c?offer_id=144&aff_id=178108" class="btn">
+        CLAIM YOUR REWARD NOW
+    </a>
 
 </div>
 
 <script>
-let time = 480;
+// Countdown
+let time = 900;
+let countdown = document.getElementById("countdown");
 
-function update(){
-    let m = Math.floor(time/60);
-    let s = time%60;
-    s = s < 10 ? "0"+s : s;
-    document.getElementById("countdown").innerText = m+":"+s;
-    if(time>0) time--;
-}
+setInterval(() => {
+    let min = Math.floor(time / 60);
+    let sec = time % 60;
+    countdown.innerHTML = ${min}:${sec < 10 ? "0"+sec : sec};
+    if(time > 0) time--;
+}, 1000);
 
-setInterval(update,1000);
+// Fake notifications
+let names = ["John","Emma","Michael","Sarah","David","Anna"];
+setInterval(()=>{
+    let randomName = names[Math.floor(Math.random()*names.length)];
+    document.getElementById("popup").innerHTML = "🔥 " + randomName + " just claimed $750";
+},5000);
 </script>
 
 </body>
