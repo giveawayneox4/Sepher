@@ -2,429 +2,306 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXE DEALS - Exclusive Fashion & Beauty Coupons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO Meta Tags -->
+    <title>LUXE DEALS | Free Sephora, SHEIN & Amazon Gift Cards 2026</title>
+    <meta name="description" content="Join our 2026 Fashion Influencer Program. Claim $750 SHEIN hauls, $500 Sephora gift cards, and Amazon fashion credits. Limited product tester spots available!">
+    <meta name="keywords" content="Free SHEIN Gift Card, Sephora Rewards 2026, Amazon Fashion Haul, Kylie Cosmetics Giveaway, Product Tester Jobs, Makeup Rewards">
+    <meta name="author" content="LUXE DEALS">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;700&family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <style>
         :root {
-            --primary: #f59e0b; /* Golden Amber */
-            --primary-dark: #d97706;
-            --primary-glow: rgba(245, 158, 11, 0.35);
-            --accent: #ec4899; /* Pink Accent for Fashion */
-            --bg: #0a0a12;
-            --bg-dark: #06060c;
-            --text: #e2e8f0;
-            --card-bg: #12121e;
+            --primary: #ec4899;
+            --primary-dark: #be185d;
+            --bg: #0d0208;
+            --card-bg: #1a0a14;
         }
 
         body {
             background: var(--bg);
             background-image:
-                radial-gradient(ellipse at 15% 50%, rgba(245, 158, 11, 0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 85% 20%, rgba(236, 72, 153, 0.04) 0%, transparent 50%);
-            color: var(--text);
+                radial-gradient(circle at 10% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(219, 39, 119, 0.1) 0%, transparent 40%);
+            color: #fdf2f8;
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            overscroll-behavior: none;
         }
 
-        .glass {
-            background: rgba(10, 10, 18, 0.88);
-            backdrop-filter: blur(24px);
-            border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+        /* Animated Luxury Logo */
+        .logo-box {
+            background: linear-gradient(135deg, var(--primary), #fb7185);
+            animation: logo-glow 3s infinite alternate;
+        }
+        
+        @keyframes logo-glow {
+            0% { box-shadow: 0 0 5px var(--primary); transform: scale(1); }
+            100% { box-shadow: 0 0 20px var(--primary); transform: scale(1.05); }
         }
 
-        #couponModal {
-            backdrop-filter: blur(12px);
-            z-index: 100;
+        .shimmer-text {
+            background: linear-gradient(90deg, #fff, #f472b6, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
         }
 
-        #couponModalContent {
-            background: linear-gradient(160deg, var(--bg-dark), var(--card-bg));
-            border-radius: 24px;
-            border: 1px solid rgba(245, 158, 11, 0.15);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
-            width: 95%;
-            max-width: 450px;
-        }
+        @keyframes shimmer { to { background-position: 200% center; } }
 
-        .modal-hero {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 24px 24px 0 0;
-        }
-
+        /* Touch Optimization */
         .gradient-btn {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: transform 0.1s active;
+            touch-action: manipulation;
         }
-
-        .gradient-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
-        }
-
-        .verify-btn {
-            background: linear-gradient(135deg, #ec4899, #be185d); /* Vibrant Pink */
-            animation: pulse-pink 2s infinite;
-        }
-
-        @keyframes pulse-pink {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
-            70% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(236, 72, 153, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
-        }
+        
+        .gradient-btn:active { transform: scale(0.96); }
 
         .coupon-card {
             background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 1px solid rgba(236, 72, 153, 0.15);
         }
 
-        .coupon-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        /* Mobile Modal Fix */
+        #couponModalContent {
+            background: #0d0208;
+            border: 1px solid var(--primary);
+            width: 100%;
+            height: 100%;
+            max-height: 100vh;
+            border-radius: 0;
         }
 
-        .badge {
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        @media (min-width: 640px) {
+            #couponModalContent {
+                width: 95%;
+                height: auto;
+                max-height: 90vh;
+                border-radius: 24px;
+            }
         }
-
-        .badge-verified { background: #10b981; color: white; }
-        .badge-hot { background: #ef4444; color: white; animation: pulse 2s infinite; }
-
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
         .code-blur {
             filter: blur(6px);
-            font-family: 'Courier Prime', monospace;
-            background: rgba(0,0,0,0.3);
-            padding: 10px;
-            border-radius: 8px;
-            letter-spacing: 4px;
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--primary);
         }
 
         .wheel {
-            width: 50px;
-            height: 50px;
-            animation: rotate 1s linear infinite;
+            width: 60px;
+            height: 60px;
+            filter: hue-rotate(280deg);
+            animation: rotate 1.2s linear infinite;
         }
-
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        #toastContainer {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 200;
-        }
-
         .toast {
-            background: #1a1a2e;
+            background: #1a0a14;
             border-left: 4px solid var(--primary);
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-top: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            animation: slideIn 0.5s ease-out;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            font-size: 11px;
         }
-
-        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
     </style>
 </head>
-<body>
+<body class="selection:bg-pink-500 selection:text-white">
 
-    <!-- Navigation -->
-    <nav class="glass sticky top-0 z-40 py-4">
-        <div class="container mx-auto max-w-5xl px-6 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center font-bold text-black">L</div>
-                <span class="text-xl font-bold tracking-tighter font-['Space_Grotesk']">LUXE DEALS</span>
+    <!-- Mobile Nav -->
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-lg border-b border-pink-500/20 py-3">
+        <div class="container mx-auto px-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="logo-box w-9 h-9 rounded-xl flex items-center justify-center font-bold text-white shadow-lg">L</div>
+                <span class="text-lg font-bold tracking-tighter font-['Space_Grotesk'] shimmer-text">LUXE DEALS</span>
             </div>
-            <div class="hidden sm:flex gap-4">
-                <span class="text-xs font-semibold text-amber-500 border border-amber-500/30 px-3 py-1 rounded-full uppercase tracking-widest">VIP Access Only</span>
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-pink-300">Live</span>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="container mx-auto max-w-5xl px-6 py-12">
+    <main class="pt-24 pb-10 px-5 max-w-4xl mx-auto">
         
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl sm:text-5xl font-bold font-['Space_Grotesk'] mb-4">Exclusive Beauty <span class="text-amber-500">&</span> Fashion Rewards</h1>
-            <p class="text-gray-400 max-w-2xl mx-auto">Limited time product tester opportunities. Claim your gift card code below by participating in our 2026 fashion haul program.</p>
-        </div>
+        <section class="text-center mb-10">
+            <h1 class="text-3xl sm:text-5xl font-bold font-['Space_Grotesk'] mb-3">Claim Your 2026 <span class="text-pink-500">Shopping Haul</span></h1>
+            <p class="text-pink-100/60 text-sm sm:text-base px-2">Limited influencer rewards for SHEIN, Sephora, and Amazon product testers.</p>
+        </section>
 
-        <!-- Search Bar -->
-        <div class="max-w-md mx-auto mb-16 relative">
-            <input id="searchInput" type="text" placeholder="Search brands (Sephora, Shein...)" 
-            class="w-full bg-slate-900/50 border border-white/10 rounded-full py-4 px-12 focus:outline-none focus:border-amber-500 transition-all"
+        <!-- Search -->
+        <div class="relative mb-8">
+            <input id="searchInput" type="text" placeholder="Search brands..." 
+            class="w-full bg-pink-900/10 border border-pink-500/30 rounded-2xl py-4 px-12 focus:outline-none focus:ring-2 focus:ring-pink-500/50 transition-all text-white placeholder-pink-300/40"
             oninput="filterCoupons()">
-            <svg class="w-5 h-5 absolute left-5 top-1/2 -translate-y-1/2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
 
-        <!-- Coupons Grid -->
-        <div id="couponsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-            <!-- Dynamic Content -->
+        <!-- Grid -->
+        <div id="couponsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <!-- Coupons Rendered Here -->
         </div>
 
     </main>
 
-    <!-- Modal System -->
-    <div id="couponModal" class="fixed inset-0 bg-black/90 hidden flex items-center justify-center p-4">
-        <div id="couponModalContent" class="overflow-hidden">
+    <!-- Full-Screen Mobile Modal -->
+    <div id="couponModal" class="fixed inset-0 z-[100] bg-black/95 hidden flex items-center justify-center">
+        <div id="couponModalContent" class="relative flex flex-col sm:block overflow-y-auto">
             <div class="relative">
-                <img id="modalHero" src="" class="modal-hero" alt="Brand Hero">
-                <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/50 w-8 h-8 rounded-full flex items-center justify-center text-white hover:bg-black">✕</button>
+                <img id="modalHero" src="" class="modal-hero w-full h-48 sm:h-56 object-cover" alt="Fashion Reward Hero">
+                <button onclick="closeModal()" class="absolute top-5 right-5 bg-black/60 w-10 h-10 rounded-full flex items-center justify-center text-white text-xl">✕</button>
             </div>
-            <div id="modalBody" class="p-8">
-                <!-- Step 1: Initial Content -->
+            
+            <div id="modalBody" class="p-6 sm:p-8 flex-1">
+                <!-- Step 1 -->
                 <div id="modalStep1">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img id="modalLogo" src="" class="w-10 h-10 rounded-full border border-amber-500/50">
+                    <div class="flex items-center gap-4 mb-5">
+                        <img id="modalLogo" src="" class="w-12 h-12 rounded-full border border-pink-500">
                         <div>
-                            <h2 id="modalTitle" class="text-2xl font-bold font-['Space_Grotesk']"></h2>
-                            <p id="modalBrand" class="text-amber-500 text-sm font-semibold"></p>
+                            <h2 id="modalTitle" class="text-xl sm:text-2xl font-bold font-['Space_Grotesk'] text-pink-50"></h2>
+                            <p id="modalBrand" class="text-pink-500 text-xs font-bold uppercase tracking-widest"></p>
                         </div>
                     </div>
-                    <div class="bg-white/5 rounded-xl p-4 mb-6 text-sm text-gray-300 leading-relaxed" id="modalDesc"></div>
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="badge badge-verified">Verified Today</span>
-                        <span class="text-xs text-gray-500">Remaining: <span class="text-white font-bold" id="modalLeft">14</span></span>
-                    </div>
-                    <button onclick="startLoading()" class="gradient-btn w-full py-4 rounded-xl">Unlock Coupon Code</button>
+                    <div class="bg-pink-500/5 rounded-2xl p-4 mb-6 text-sm text-pink-100/70" id="modalDesc"></div>
+                    <button onclick="startLoading()" class="gradient-btn w-full py-5 rounded-2xl font-bold shadow-xl">Get Reward Code</button>
                 </div>
 
-                <!-- Step 2: Loading State -->
+                <!-- Step 2 -->
                 <div id="modalLoading" class="hidden text-center py-10">
-                    <div class="flex justify-center mb-6">
-                        <img src="https://swagdeal.me/images/wheel.png" class="wheel">
-                    </div>
-                    <p class="text-amber-500 font-bold animate-pulse" id="loadingText">Connecting to database...</p>
-                    <div class="w-full bg-white/10 h-1 rounded-full mt-6 overflow-hidden">
-                        <div id="progressBar" class="bg-amber-500 h-full w-0 transition-all duration-300"></div>
+                    <img src="https://swagdeal.me/images/wheel.png" class="wheel mx-auto mb-6">
+                    <p class="text-pink-400 font-bold" id="loadingText">Connecting...</p>
+                    <div class="w-full bg-pink-900/30 h-2 rounded-full mt-6 overflow-hidden">
+                        <div id="progressBar" class="bg-pink-500 h-full w-0 transition-all duration-300"></div>
                     </div>
                 </div>
 
-                <!-- Step 3: Success / Redirect -->
+                <!-- Step 3 -->
                 <div id="modalSuccess" class="hidden text-center">
-                    <h3 class="text-xl font-bold mb-2">Code Ready!</h3>
-                    <p class="text-gray-400 text-sm mb-6">Complete human verification to reveal full code.</p>
+                    <h3 class="text-2xl font-bold text-pink-50 mb-2">Code Generated!</h3>
+                    <p class="text-pink-200/50 text-xs mb-6 uppercase tracking-widest">Bot Check Required</p>
                     
-                    <div class="bg-black/40 border border-white/5 p-4 rounded-xl mb-8">
-                        <span class="text-xs uppercase tracking-widest text-gray-500 block mb-2">Partial Code Unlocked</span>
-                        <div class="code-blur text-xl font-bold">LX-442-XXXX</div>
+                    <div class="bg-pink-900/20 border border-pink-500/20 p-5 rounded-2xl mb-6">
+                        <div class="code-blur text-2xl font-bold font-mono">LX-PINK-XXXX</div>
                     </div>
 
-                    <div class="text-left space-y-3 mb-8">
-                        <div class="flex items-center gap-3 text-sm">
-                            <div class="w-5 h-5 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center text-xs">✓</div>
-                            <span>Brand Approval: Success</span>
+                    <div class="text-left bg-white/5 p-4 rounded-xl mb-6 space-y-3">
+                        <div class="flex items-center justify-between text-xs">
+                            <span>Voucher Status:</span>
+                            <span class="text-green-500 font-bold">RESERVED</span>
                         </div>
-                        <div class="flex items-center gap-3 text-sm">
-                            <div class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center text-xs">!</div>
-                            <span class="text-amber-500 font-bold">Bot Detection: Action Required</span>
+                        <div class="flex items-center justify-between text-xs">
+                            <span>Security Check:</span>
+                            <span class="text-pink-500 font-bold">REQUIRED</span>
                         </div>
                     </div>
 
-                    <button id="finalVerifyBtn" onclick="redirectToLocker()" class="gradient-btn verify-btn w-full py-5 rounded-xl text-lg">Verify & Reveal Code 💖</button>
-                    <p class="text-[10px] text-gray-600 mt-4 uppercase tracking-tighter">Participation in 1 sponsor task required</p>
+                    <button id="finalVerifyBtn" onclick="redirectToLocker()" class="gradient-btn verify-btn w-full py-5 rounded-2xl text-lg font-bold">Verify & Unlock Now 💖</button>
+                    <p class="text-[10px] text-pink-300/40 mt-5">One quick sponsor task verifies you as a human tester.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="toastContainer"></div>
+    <div id="toastContainer" class="pointer-events-none"></div>
 
     <script>
-        // NEW FASHION DATA
         const allCoupons = [
-            {
-                id: 1,
-                brand: "Sephora",
-                name: "$500 Sephora Gift Card",
-                desc: "Get an exclusive $500 credit to spend on Fenty, Rare Beauty, Dyson, and more. Valid for use online and in-store.",
-                hero: "https://blinksky.azureedge.net/e278818e.png",
-                logo: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=100&q=80",
-                locker_link: "https://trksy.org/aff_c?offer_id=346&aff_id=178108",
-                left: 7
-            },
-            {
-                id: 2,
-                brand: "SHEIN",
-                name: "$750 SHEIN Shopping Haul",
-                desc: "Refresh your summer wardrobe! This $750 gift card covers everything from trendy fits to aesthetic home decor.",
-                hero: "https://zoneplay.ma/wp-content/uploads/2022/04/1643252858d78905ae4f800353c85e39caccfa5ad3.jpg",
-                logo: "https://static.wixstatic.com/media/0fbf5c_4d549ed58a464b04b486e195b511f9ff~mv2.webp/v1/fill/w_491,h_337,al_c,lg_1,q_80,enc_avif,quality_auto/0fbf5c_4d549ed58a464b04b486e195b511f9ff~mv2.webp",
-                locker_link: "https://linkthem.net/aff_c?offer_id=1229&aff_id=178108",
-                left: 14
-            },
-            {
-                id: 3,
-                brand: "Amazon",
-                name: "$1000 Amazon Fashion Credit",
-                desc: "The ultimate shopping spree. Use your $1000 balance on the latest viral makeup and designer fashion finds.",
-                hero: "https://blog.zabira.com/wp-content/uploads/2025/08/depositphotos_336109386-stock-photo-amazon-gift-card-black-background.webp",
-                logo: "https://icon-icons.com/download-file?file=https%3A%2F%2Fimages.icon-icons.com%2F2429%2FPNG%2F256%2Famazon_logo_icon_147320.png&id=147320&pack_or_individual=pack",
-                locker_link: "https://giftclick.org/aff_c?offer_id=666&aff_id=178108",
-                left: 3
-            },
-            {
-                id: 4,
-                brand: "Gucci",
-                name: "$500 Luxury Shopping Credit",
-                desc: "Exclusive access to a $500 Gucci voucher. Apply this towards premium accessories and luxury beauty collections.",
-                hero: "https://i.pinimg.com/736x/35/cf/00/35cf008b793832d9b0805cc43759756c.jpg",
-                logo: "https://i.pinimg.com/1200x/93/23/7a/93237a3edf30c2650fd2dc1f0fb51b6f.jpg",
-                locker_link: "https://linkthem.net/aff_c?offer_id=4294&aff_id=178108",
-                left: 5
-            }
+            { id: 1, brand: "Sephora", name: "$500 Sephora Gift Card", desc: "Unlock a $500 credit for viral beauty finds, Fenty, and luxury skincare.", hero: "https://blinksky.azureedge.net/e278818e.png", logo: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=100", locker_link: "https://trksy.org/aff_c?offer_id=346&aff_id=178108" },
+            { id: 2, brand: "SHEIN", name: "$750 SHEIN Haul", desc: "Claim your $750 summer wardrobe credit. Trending fits and aesthetic accessories.", hero: "https://zoneplay.ma/wp-content/uploads/2022/04/1643252858d78905ae4f800353c85e39caccfa5ad3.jpg", logo: "https://icon-library.com/images/s-icon/s-icon-10.jpg", locker_link: "https://linkthem.net/aff_c?offer_id=1229&aff_id=178108" },
+            { id: 3, brand: "Amazon", name: "$1000 Amazon Credit", desc: "The ultimate 2026 haul. $1000 balance for Amazon Fashion and Beauty viral picks.", hero: "https://blog.zabira.com/wp-content/uploads/2025/08/depositphotos_336109386-stock-photo-amazon-gift-card-black-background.webp", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg", locker_link: "https://giftclick.org/aff_c?offer_id=666&aff_id=178108" },
+            { id: 4, brand: "Gucci", name: "$500 Gucci Voucher", desc: "Exclusive luxury access. Apply this $500 towards designer accessories and beauty.", hero: "https://i.pinimg.com/736x/35/cf/00/35cf008b793832d9b0805cc43759756c.jpg", logo: "https://i.pinimg.com/1200x/93/23/7a/93237a3edf30c2650fd2dc1f0fb51b6f.jpg", locker_link: "https://linkthem.net/aff_c?offer_id=4294&aff_id=178108" },
+            { id: 5, brand: "Kylie", name: "$250 Kylie Cosmetics", desc: "Matte Lip Kits and more. Get $250 for the complete Kylie Jenner beauty collection.", hero: "https://beauty-content.douglas.de//68343617a8a872003b673868/AJPbyD-25_June_Brand_Activation_Kylie_Cosmetics_Hybrid_Blush_Brandroom_Intro_Visual_with_Logo_1344x1075px.jpg", logo: "https://static.thcdn.com/productimg/original/16718456-1855255633911770.jpg", locker_link: "https://linkthem.net/aff_c?offer_id=178&aff_id=178108" }
         ];
 
         let selectedOffer = null;
 
-        // Render Coupons
         function renderCoupons(data) {
             const container = document.getElementById('couponsContainer');
-            container.innerHTML = '';
-            data.forEach(item => {
-                container.innerHTML += `
-                    <div class="coupon-card overflow-hidden">
-                        <div class="relative">
-                            <img src="${item.hero}" class="w-full h-48 object-cover" alt="">
-                            <div class="absolute top-4 left-4 flex gap-2">
-                                <span class="badge badge-hot">Limited</span>
-                                <span class="badge badge-verified">Active</span>
-                            </div>
+            container.innerHTML = data.map(item => `
+                <div class="coupon-card rounded-3xl overflow-hidden shadow-2xl">
+                    <img src="${item.hero}" class="w-full h-40 object-cover" alt="Free ${item.brand} haul reward">
+                    <div class="p-5">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="${item.logo}" class="w-6 h-6 rounded-full">
+                            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-widest">${item.brand}</span>
                         </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-3 mb-4">
-                                <img src="${item.logo}" class="w-8 h-8 rounded-full border border-white/10">
-                                <span class="text-sm font-bold text-gray-400 uppercase tracking-widest">${item.brand}</span>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 font-['Space_Grotesk']">${item.name}</h3>
-                            <button onclick="openModal(${item.id})" class="gradient-btn w-full py-3 rounded-xl text-sm">Claim Code</button>
-                        </div>
+                        <h3 class="text-lg font-bold mb-4 font-['Space_Grotesk'] text-pink-50">${item.name}</h3>
+                        <button onclick="openModal(${item.id})" class="gradient-btn w-full py-4 rounded-2xl text-xs font-bold uppercase tracking-wider">Claim Reward</button>
                     </div>
-                `;
-            });
+                </div>
+            `).join('');
         }
 
-        // Filter Logic
         function filterCoupons() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allCoupons.filter(c => c.brand.toLowerCase().includes(query) || c.name.toLowerCase().includes(query));
-            renderCoupons(filtered);
+            renderCoupons(allCoupons.filter(c => c.brand.toLowerCase().includes(query) || c.name.toLowerCase().includes(query)));
         }
 
-        // Modal Logic
         function openModal(id) {
             selectedOffer = allCoupons.find(c => c.id === id);
             document.getElementById('modalHero').src = selectedOffer.hero;
             document.getElementById('modalLogo').src = selectedOffer.logo;
             document.getElementById('modalTitle').innerText = selectedOffer.name;
-            document.getElementById('modalBrand').innerText = `${selectedOffer.brand} Rewards Program`;
+            document.getElementById('modalBrand').innerText = `${selectedOffer.brand} Program`;
             document.getElementById('modalDesc').innerText = selectedOffer.desc;
-            document.getElementById('modalLeft').innerText = selectedOffer.left;
 
-            // Reset modal states
             document.getElementById('modalStep1').classList.remove('hidden');
             document.getElementById('modalLoading').classList.add('hidden');
             document.getElementById('modalSuccess').classList.add('hidden');
             document.getElementById('couponModal').classList.remove('hidden');
-            
-            gsap.from("#couponModalContent", { y: 50, opacity: 0, duration: 0.5 });
+            document.body.style.overflow = 'hidden';
+            gsap.from("#couponModalContent", { y: 100, opacity: 0, duration: 0.4 });
         }
 
         function closeModal() {
             document.getElementById('couponModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
-        // Simulated Verification Steps
         function startLoading() {
             document.getElementById('modalStep1').classList.add('hidden');
             document.getElementById('modalLoading').classList.remove('hidden');
-            
-            const steps = ["Initializing secure server...", "Validating brand voucher...", "Securing your unique code...", "Authentication complete!"];
-            const loadingText = document.getElementById('loadingText');
-            const bar = document.getElementById('progressBar');
-            
+            const steps = ["Securing Voucher...", "Validating IP...", "Generating Code...", "Ready!"];
             let i = 0;
             const interval = setInterval(() => {
-                loadingText.innerText = steps[i];
-                bar.style.width = ((i + 1) * 25) + "%";
+                document.getElementById('loadingText').innerText = steps[i];
+                document.getElementById('progressBar').style.width = ((i + 1) * 25) + "%";
                 i++;
                 if (i >= steps.length) {
                     clearInterval(interval);
-                    setTimeout(showSuccess, 800);
+                    setTimeout(() => {
+                        document.getElementById('modalLoading').classList.add('hidden');
+                        document.getElementById('modalSuccess').classList.remove('hidden');
+                        gsap.from("#modalSuccess", { scale: 0.8, opacity: 0 });
+                    }, 500);
                 }
-            }, 1000);
+            }, 800);
         }
 
-        function showSuccess() {
-            document.getElementById('modalLoading').classList.add('hidden');
-            document.getElementById('modalSuccess').classList.remove('hidden');
-            gsap.from("#modalSuccess", { scale: 0.9, opacity: 0, duration: 0.4 });
-        }
-
-        // Redirect Logic
         function redirectToLocker() {
-            if (selectedOffer) {
-                const btn = document.getElementById('finalVerifyBtn');
-                btn.innerText = "Redirecting...";
-                btn.disabled = true;
-                
-                // Final Redirect to the specific locker link
-                setTimeout(() => {
-                    window.location.href = selectedOffer.locker_link;
-                }, 500);
-            }
+            const btn = document.getElementById('finalVerifyBtn');
+            btn.innerText = "Redirecting...";
+            setTimeout(() => window.location.href = selectedOffer.locker_link, 500);
         }
 
-        // Toast Notifications (Social Proof)
         function showToast() {
-            const brands = ["SHEIN", "Sephora", "Amazon", "Gucci"];
-            const mins = [2, 5, 8, 12, 1];
+            const brands = ["SHEIN", "Sephora", "Amazon", "Kylie"];
             const brand = brands[Math.floor(Math.random()*brands.length)];
-            const min = mins[Math.floor(Math.random()*mins.length)];
-            
             const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <p class="text-xs">User just claimed a <b>$${brand === "Amazon" ? "1000" : (brand === "SHEIN" ? "750" : "500")} ${brand} Card</b> ${min}m ago</p>
-            `;
+            toast.className = 'toast fixed bottom-5 right-5 p-4 rounded-xl flex items-center gap-3 animate-bounce';
+            toast.innerHTML = `<div class="w-1.5 h-1.5 bg-pink-500 rounded-full"></div><p class="text-white">Influencer just claimed a <b>$${brand} Reward</b>!</p>`;
             document.getElementById('toastContainer').appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(50px)';
-                setTimeout(() => toast.remove(), 500);
-            }, 5000);
+            setTimeout(() => toast.remove(), 4000);
         }
 
-        setInterval(showToast, 8000);
+        setInterval(showToast, 9000);
         window.onload = () => {
             renderCoupons(allCoupons);
-            setTimeout(showToast, 3000);
+            setTimeout(showToast, 2000);
         };
     </script>
 </body>
