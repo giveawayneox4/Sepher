@@ -3,369 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon Shopper Opportunity</title>
-    <!-- Google Fonts: Poppins for a modern, high-converting look -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>LUXE DEALS - Exclusive Fashion & Beauty Coupons</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         :root {
-            --amazon-orange: #FF9900;
-            --amazon-navy: #232F3E;
-            --amazon-light-blue: #007185;
-            --bg-gray: #f3f3f3;
-            --tiktok-gray: #777777;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
+            --primary: #f59e0b; /* Golden Amber */
+            --primary-dark: #d97706;
+            --primary-glow: rgba(245, 158, 11, 0.35);
+            --accent: #ec4899; /* Pink Accent for Fashion */
+            --bg: #0a0a12;
+            --bg-dark: #06060c;
+            --text: #e2e8f0;
+            --card-bg: #12121e;
         }
 
         body {
-            background-color: #1a1a1a; /* Dark background for desktop focus */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
-
-        /* Mobile Container */
-        .page-wrapper {
-            width: 100%;
-            max-width: 480px;
-            background: #ffffff;
-            min-height: 100vh;
-            position: relative;
-            box-shadow: 0 0 40px rgba(0,0,0,0.6);
-            padding-bottom: 40px;
+            background: var(--bg);
+            background-image:
+                radial-gradient(ellipse at 15% 50%, rgba(245, 158, 11, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 20%, rgba(236, 72, 153, 0.04) 0%, transparent 50%);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Top Sticky Banner */
-        .top-banner {
-            background: linear-gradient(90deg, #FF9900, #ffb347);
-            color: #000;
-            text-align: center;
-            padding: 8px;
-            font-weight: 800;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-            position: sticky;
-            top: 0;
+        .glass {
+            background: rgba(10, 10, 18, 0.88);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+        }
+
+        #couponModal {
+            backdrop-filter: blur(12px);
             z-index: 100;
+        }
+
+        #couponModalContent {
+            background: linear-gradient(160deg, var(--bg-dark), var(--card-bg));
+            border-radius: 24px;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            width: 95%;
+            max-width: 450px;
+        }
+
+        .modal-hero {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .gradient-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .gradient-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+        }
+
+        .verify-btn {
+            background: linear-gradient(135deg, #ec4899, #be185d); /* Vibrant Pink */
+            animation: pulse-pink 2s infinite;
+        }
+
+        @keyframes pulse-pink {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
+            70% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(236, 72, 153, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+        }
+
+        .coupon-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .coupon-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
             text-transform: uppercase;
         }
 
-        /* Amazon Style Header */
-        .amazon-header {
-            background-color: var(--amazon-navy);
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        .badge-verified { background: #10b981; color: white; }
+        .badge-hot { background: #ef4444; color: white; animation: pulse 2s infinite; }
 
-        .amazon-logo {
-            height: 30px;
-            filter: brightness(0) invert(1); /* Makes logo white */
-        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
-        /* Hero Image Section */
-        .hero-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .hero-img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .content {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .eyebrow {
-            color: var(--amazon-light-blue);
-            font-weight: 700;
-            font-size: 1rem;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        h1 {
-            font-size: 2.1rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 12px;
-            color: var(--amazon-navy);
-        }
-
-        .subheadline {
-            font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        /* Scarcity Progress Bar */
-        .status-card {
-            background: #f7f7f7;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-        }
-
-        .status-text {
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .live-indicator {
-            height: 8px;
-            width: 8px;
-            background-color: #d9534f;
-            border-radius: 50%;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.2;} 100% {opacity: 1;} }
-
-        .bar-bg {
-            width: 100%;
-            height: 14px;
-            background: #e0e0e0;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .bar-fill {
-            width: 85%;
-            height: 100%;
-            background: var(--amazon-orange);
-            transition: width 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* Urgency Timer */
-        .timer-box {
-            color: #cc0c39;
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-
-        /* High-Contrast CTA Button */
-        .amazon-btn {
-            display: block;
-            background: #FF9900;
-            background: linear-gradient(to bottom, #f7dfa5, #f0c14b); /* classic amazon button look */
-            border: 1px solid #a88734;
-            color: #111;
-            text-decoration: none;
-            padding: 20px;
+        .code-blur {
+            filter: blur(6px);
+            font-family: 'Courier Prime', monospace;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
             border-radius: 8px;
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin: 15px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            animation: pulse 1.8s infinite;
+            letter-spacing: 4px;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-            50% { transform: scale(1.03); box-shadow: 0 10px 20px rgba(255, 153, 0, 0.3); }
-            100% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .wheel {
+            width: 50px;
+            height: 50px;
+            animation: rotate 1s linear infinite;
         }
 
-        /* TikTok Comments */
-        .social-proof {
-            text-align: left;
-            margin-top: 35px;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        #toastContainer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 200;
         }
 
-        .comment-header {
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-            color: #666;
-        }
-
-        .comment {
+        .toast {
+            background: #1a1a2e;
+            border-left: 4px solid var(--primary);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             display: flex;
+            align-items: center;
             gap: 12px;
-            margin-bottom: 18px;
+            animation: slideIn 0.5s ease-out;
         }
 
-        .user-img {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .comment-body {
-            flex: 1;
-        }
-
-        .user-name {
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .comment-msg {
-            font-size: 0.85rem;
-            color: #222;
-            line-height: 1.4;
-        }
-
-        .comment-footer {
-            font-size: 0.75rem;
-            color: var(--tiktok-gray);
-            margin-top: 4px;
-            display: flex;
-            gap: 12px;
-        }
-
-        /* Disclaimer */
-        .footer-legal {
-            font-size: 0.65rem;
-            color: #aaa;
-            padding: 30px 20px;
-            line-height: 1.4;
-            text-align: center;
-        }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
     </style>
 </head>
 <body>
 
-<div class="page-wrapper">
-    <!-- Sticky Top Banner -->
-    <div class="top-banner">✨ TikTok Exclusive Opportunity ✨</div>
-
-    <!-- Amazon Nav Bar (Fake for Trust) -->
-    <div class="amazon-header">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="amazon-logo">
-    </div>
-
-    <!-- Hero Image (Amazon Boxes/Shopping) -->
-    <div class="hero-container">
-        <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=800&q=80" alt="Amazon Haul" class="hero-img">
-    </div>
-
-    <div class="content">
-        <span class="eyebrow">Hey Bestie 📦</span>
-        <h1>Claim Your $750 Amazon Haul!</h1>
-        <p class="subheadline">
-            We are looking for product reviewers to test out the most viral Amazon gadgets. Register today to receive a <b>$750 Amazon Gift Card</b> to spend on anything you want!
-        </p>
-
-        <!-- Scarcity / Progress -->
-        <div class="status-card">
-            <div class="status-text">
-                <span class="live-indicator"></span> Spots Remaining: <span id="percent-val">85%</span> Full
+    <!-- Navigation -->
+    <nav class="glass sticky top-0 z-40 py-4">
+        <div class="container mx-auto max-w-5xl px-6 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center font-bold text-black">L</div>
+                <span class="text-xl font-bold tracking-tighter font-['Space_Grotesk']">LUXE DEALS</span>
             </div>
-            <div class="bar-bg">
-                <div class="bar-fill" id="progress-bar"></div>
+            <div class="hidden sm:flex gap-4">
+                <span class="text-xs font-semibold text-amber-500 border border-amber-500/30 px-3 py-1 rounded-full uppercase tracking-widest">VIP Access Only</span>
             </div>
         </div>
+    </nav>
 
-        <!-- Timer -->
-        <div class="timer-box">
-            Offer Expires: <span id="timer">04:59</span>
+    <!-- Main Content -->
+    <main class="container mx-auto max-w-5xl px-6 py-12">
+        
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl font-bold font-['Space_Grotesk'] mb-4">Exclusive Beauty <span class="text-amber-500">&</span> Fashion Rewards</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">Limited time product tester opportunities. Claim your gift card code below by participating in our 2026 fashion haul program.</p>
         </div>
 
-        <!-- CALL TO ACTION -->
-        <a href="https://linkthem.net/aff_c?offer_id=2224&aff_id=178108" class="amazon-btn">
-            CLAIM MY $750 TO SPEND 💳
-        </a>
+        <!-- Search Bar -->
+        <div class="max-w-md mx-auto mb-16 relative">
+            <input id="searchInput" type="text" placeholder="Search brands (Sephora, Shein...)" 
+            class="w-full bg-slate-900/50 border border-white/10 rounded-full py-4 px-12 focus:outline-none focus:border-amber-500 transition-all"
+            oninput="filterCoupons()">
+            <svg class="w-5 h-5 absolute left-5 top-1/2 -translate-y-1/2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
 
-        <!-- TikTok Style Comments -->
-        <div class="social-proof">
-            <p class="comment-header">Comments (432)</p>
+        <!-- Coupons Grid -->
+        <div id="couponsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+            <!-- Dynamic Content -->
+        </div>
 
-            <div class="comment">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="user-img" alt="avatar">
-                <div class="comment-body">
-                    <div class="user-name">alexis.vibe</div>
-                    <p class="comment-msg">bro i thought it was fake but i just got my balance loaded!! buying my dorm room stuff now 😭🙏</p>
-                    <div class="comment-footer"><span>3h ago</span> <span>Reply</span> <span><b>1.4k likes</b></span></div>
+    </main>
+
+    <!-- Modal System -->
+    <div id="couponModal" class="fixed inset-0 bg-black/90 hidden flex items-center justify-center p-4">
+        <div id="couponModalContent" class="overflow-hidden">
+            <div class="relative">
+                <img id="modalHero" src="" class="modal-hero" alt="Brand Hero">
+                <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/50 w-8 h-8 rounded-full flex items-center justify-center text-white hover:bg-black">✕</button>
+            </div>
+            <div id="modalBody" class="p-8">
+                <!-- Step 1: Initial Content -->
+                <div id="modalStep1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img id="modalLogo" src="" class="w-10 h-10 rounded-full border border-amber-500/50">
+                        <div>
+                            <h2 id="modalTitle" class="text-2xl font-bold font-['Space_Grotesk']"></h2>
+                            <p id="modalBrand" class="text-amber-500 text-sm font-semibold"></p>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-4 mb-6 text-sm text-gray-300 leading-relaxed" id="modalDesc"></div>
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="badge badge-verified">Verified Today</span>
+                        <span class="text-xs text-gray-500">Remaining: <span class="text-white font-bold" id="modalLeft">14</span></span>
+                    </div>
+                    <button onclick="startLoading()" class="gradient-btn w-full py-4 rounded-xl">Unlock Coupon Code</button>
+                </div>
+
+                <!-- Step 2: Loading State -->
+                <div id="modalLoading" class="hidden text-center py-10">
+                    <div class="flex justify-center mb-6">
+                        <img src="https://swagdeal.me/images/wheel.png" class="wheel">
+                    </div>
+                    <p class="text-amber-500 font-bold animate-pulse" id="loadingText">Connecting to database...</p>
+                    <div class="w-full bg-white/10 h-1 rounded-full mt-6 overflow-hidden">
+                        <div id="progressBar" class="bg-amber-500 h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Success / Redirect -->
+                <div id="modalSuccess" class="hidden text-center">
+                    <h3 class="text-xl font-bold mb-2">Code Ready!</h3>
+                    <p class="text-gray-400 text-sm mb-6">Complete human verification to reveal full code.</p>
+                    
+                    <div class="bg-black/40 border border-white/5 p-4 rounded-xl mb-8">
+                        <span class="text-xs uppercase tracking-widest text-gray-500 block mb-2">Partial Code Unlocked</span>
+                        <div class="code-blur text-xl font-bold">LX-442-XXXX</div>
+                    </div>
+
+                    <div class="text-left space-y-3 mb-8">
+                        <div class="flex items-center gap-3 text-sm">
+                            <div class="w-5 h-5 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center text-xs">✓</div>
+                            <span>Brand Approval: Success</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm">
+                            <div class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center text-xs">!</div>
+                            <span class="text-amber-500 font-bold">Bot Detection: Action Required</span>
+                        </div>
+                    </div>
+
+                    <button id="finalVerifyBtn" onclick="redirectToLocker()" class="gradient-btn verify-btn w-full py-5 rounded-xl text-lg">Verify & Reveal Code 💖</button>
+                    <p class="text-[10px] text-gray-600 mt-4 uppercase tracking-tighter">Participation in 1 sponsor task required</p>
                 </div>
             </div>
-
-            <div class="comment">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" class="user-img" alt="avatar">
-                <div class="comment-body">
-                    <div class="user-name">itzy.jacob</div>
-                    <p class="comment-msg">If you see this on your fyp it's a sign lol. took like 4 minutes to finish.</p>
-                    <div class="comment-footer"><span>1h ago</span> <span>Reply</span> <span><b>942 likes</b></span></div>
-                </div>
-            </div>
-
-            <div class="comment">
-                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&h=100&fit=crop" class="user-img" alt="avatar">
-                <div class="comment-body">
-                    <div class="user-name">sarah.styles</div>
-                    <p class="comment-msg">Wait is there a deadline? I need to tell my sister ASAP</p>
-                    <div class="comment-footer"><span>22m ago</span> <span>Reply</span> <span><b>156 likes</b></span></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-legal">
-            *This is an independent rewards program and not affiliated with Amazon.com, Inc. Trademarks are property of their respective owners. Participation in third-party marketing surveys/offers is required to receive the reward.
         </div>
     </div>
-</div>
 
-<script>
-    // 1. SCARCITY BAR LOGIC
-    // After 3 seconds, jump the progress bar to create urgency
-    setTimeout(() => {
-        const bar = document.getElementById('progress-bar');
-        const text = document.getElementById('percent-val');
-        bar.style.width = '94%';
-        text.innerText = '94%';
-        text.style.color = '#cc0c39';
-    }, 3000);
+    <div id="toastContainer"></div>
 
-    // 2. COUNTDOWN TIMER LOGIC
-    function startTimer(duration, display) {
-        let timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {
-                timer = 0;
+    <script>
+        // NEW FASHION DATA
+        const allCoupons = [
+            {
+                id: 1,
+                brand: "Sephora",
+                name: "$500 Sephora Gift Card",
+                desc: "Get an exclusive $500 credit to spend on Fenty, Rare Beauty, Dyson, and more. Valid for use online and in-store.",
+                hero: "https://blinksky.azureedge.net/e278818e.png",
+                logo: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=100&q=80",
+                locker_link: "https://trksy.org/aff_c?offer_id=346&aff_id=178108",
+                left: 7
+            },
+            {
+                id: 2,
+                brand: "SHEIN",
+                name: "$750 SHEIN Shopping Haul",
+                desc: "Refresh your summer wardrobe! This $750 gift card covers everything from trendy fits to aesthetic home decor.",
+                hero: "https://zoneplay.ma/wp-content/uploads/2022/04/1643252858d78905ae4f800353c85e39caccfa5ad3.jpg",
+                logo: "https://static.wixstatic.com/media/0fbf5c_4d549ed58a464b04b486e195b511f9ff~mv2.webp/v1/fill/w_491,h_337,al_c,lg_1,q_80,enc_avif,quality_auto/0fbf5c_4d549ed58a464b04b486e195b511f9ff~mv2.webp",
+                locker_link: "https://linkthem.net/aff_c?offer_id=1229&aff_id=178108",
+                left: 14
+            },
+            {
+                id: 3,
+                brand: "Amazon",
+                name: "$1000 Amazon Fashion Credit",
+                desc: "The ultimate shopping spree. Use your $1000 balance on the latest viral makeup and designer fashion finds.",
+                hero: "https://blog.zabira.com/wp-content/uploads/2025/08/depositphotos_336109386-stock-photo-amazon-gift-card-black-background.webp",
+                logo: "https://icon-icons.com/download-file?file=https%3A%2F%2Fimages.icon-icons.com%2F2429%2FPNG%2F256%2Famazon_logo_icon_147320.png&id=147320&pack_or_individual=pack",
+                locker_link: "https://giftclick.org/aff_c?offer_id=666&aff_id=178108",
+                left: 3
+            },
+            {
+                id: 4,
+                brand: "Gucci",
+                name: "$500 Luxury Shopping Credit",
+                desc: "Exclusive access to a $500 Gucci voucher. Apply this towards premium accessories and luxury beauty collections.",
+                hero: "https://i.pinimg.com/736x/35/cf/00/35cf008b793832d9b0805cc43759756c.jpg",
+                logo: "https://i.pinimg.com/1200x/93/23/7a/93237a3edf30c2650fd2dc1f0fb51b6f.jpg",
+                locker_link: "https://linkthem.net/aff_c?offer_id=4294&aff_id=178108",
+                left: 5
             }
-        }, 1000);
-    }
+        ];
 
-    window.onload = function () {
-        let startTime = 60 * 4 + 59; // 04:59
-        let display = document.querySelector('#timer');
-        startTimer(startTime, display);
-    };
-</script>
+        let selectedOffer = null;
 
+        // Render Coupons
+        function renderCoupons(data) {
+            const container = document.getElementById('couponsContainer');
+            container.innerHTML = '';
+            data.forEach(item => {
+                container.innerHTML += `
+                    <div class="coupon-card overflow-hidden">
+                        <div class="relative">
+                            <img src="${item.hero}" class="w-full h-48 object-cover" alt="">
+                            <div class="absolute top-4 left-4 flex gap-2">
+                                <span class="badge badge-hot">Limited</span>
+                                <span class="badge badge-verified">Active</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <img src="${item.logo}" class="w-8 h-8 rounded-full border border-white/10">
+                                <span class="text-sm font-bold text-gray-400 uppercase tracking-widest">${item.brand}</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 font-['Space_Grotesk']">${item.name}</h3>
+                            <button onclick="openModal(${item.id})" class="gradient-btn w-full py-3 rounded-xl text-sm">Claim Code</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Filter Logic
+        function filterCoupons() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allCoupons.filter(c => c.brand.toLowerCase().includes(query) || c.name.toLowerCase().includes(query));
+            renderCoupons(filtered);
+        }
+
+        // Modal Logic
+        function openModal(id) {
+            selectedOffer = allCoupons.find(c => c.id === id);
+            document.getElementById('modalHero').src = selectedOffer.hero;
+            document.getElementById('modalLogo').src = selectedOffer.logo;
+            document.getElementById('modalTitle').innerText = selectedOffer.name;
+            document.getElementById('modalBrand').innerText = `${selectedOffer.brand} Rewards Program`;
+            document.getElementById('modalDesc').innerText = selectedOffer.desc;
+            document.getElementById('modalLeft').innerText = selectedOffer.left;
+
+            // Reset modal states
+            document.getElementById('modalStep1').classList.remove('hidden');
+            document.getElementById('modalLoading').classList.add('hidden');
+            document.getElementById('modalSuccess').classList.add('hidden');
+            document.getElementById('couponModal').classList.remove('hidden');
+            
+            gsap.from("#couponModalContent", { y: 50, opacity: 0, duration: 0.5 });
+        }
+
+        function closeModal() {
+            document.getElementById('couponModal').classList.add('hidden');
+        }
+
+        // Simulated Verification Steps
+        function startLoading() {
+            document.getElementById('modalStep1').classList.add('hidden');
+            document.getElementById('modalLoading').classList.remove('hidden');
+            
+            const steps = ["Initializing secure server...", "Validating brand voucher...", "Securing your unique code...", "Authentication complete!"];
+            const loadingText = document.getElementById('loadingText');
+            const bar = document.getElementById('progressBar');
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                loadingText.innerText = steps[i];
+                bar.style.width = ((i + 1) * 25) + "%";
+                i++;
+                if (i >= steps.length) {
+                    clearInterval(interval);
+                    setTimeout(showSuccess, 800);
+                }
+            }, 1000);
+        }
+
+        function showSuccess() {
+            document.getElementById('modalLoading').classList.add('hidden');
+            document.getElementById('modalSuccess').classList.remove('hidden');
+            gsap.from("#modalSuccess", { scale: 0.9, opacity: 0, duration: 0.4 });
+        }
+
+        // Redirect Logic
+        function redirectToLocker() {
+            if (selectedOffer) {
+                const btn = document.getElementById('finalVerifyBtn');
+                btn.innerText = "Redirecting...";
+                btn.disabled = true;
+                
+                // Final Redirect to the specific locker link
+                setTimeout(() => {
+                    window.location.href = selectedOffer.locker_link;
+                }, 500);
+            }
+        }
+
+        // Toast Notifications (Social Proof)
+        function showToast() {
+            const brands = ["SHEIN", "Sephora", "Amazon", "Gucci"];
+            const mins = [2, 5, 8, 12, 1];
+            const brand = brands[Math.floor(Math.random()*brands.length)];
+            const min = mins[Math.floor(Math.random()*mins.length)];
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <p class="text-xs">User just claimed a <b>$${brand === "Amazon" ? "1000" : (brand === "SHEIN" ? "750" : "500")} ${brand} Card</b> ${min}m ago</p>
+            `;
+            document.getElementById('toastContainer').appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(50px)';
+                setTimeout(() => toast.remove(), 500);
+            }, 5000);
+        }
+
+        setInterval(showToast, 8000);
+        window.onload = () => {
+            renderCoupons(allCoupons);
+            setTimeout(showToast, 3000);
+        };
+    </script>
 </body>
 </html>
