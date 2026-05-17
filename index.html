@@ -5,274 +5,230 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Meta Tags -->
-    <title>Sephora Beauty Rewards | Claim Your $500 Gift Card 2026</title>
-    <meta name="description" content="Join the 2026 Sephora Beauty Insider Tester Program. Claim your $500 gift card for Fenty, Rare Beauty, and luxury skincare.">
-    <meta name="author" content="Beauty Rewards">
+    <title>Victoria's Secret | Claim Your $100 Reward 2026</title>
+    <meta name="description" content="Official Victoria's Secret $100 Reward Program. Join our 2026 sweepstakes and claim your fashion credit today.">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
         :root {
-            --sephora-red: #ff0000;
-            --sephora-black: #000000;
-            --sephora-white: #ffffff;
+            --vs-pink-light: #fff0f5;
+            --vs-pink-main: #ffafcc;
+            --vs-pink-hot: #fb6f92;
+            --vs-black: #111111;
         }
 
         body {
-            background-color: var(--sephora-white);
-            color: var(--sephora-black);
+            background-color: #ffffff;
+            color: var(--vs-black);
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Sephora Signature Stripes */
-        .stripes-bg {
-            background: repeating-linear-gradient(
+        .font-serif-vs { font-family: 'Playfair Display', serif; }
+
+        /* Signature Pink stripes used in VS branding */
+        .vs-stripes-bg {
+            background-image: repeating-linear-gradient(
                 -45deg,
-                #f3f3f3,
-                #f3f3f3 10px,
-                #ffffff 10px,
-                #ffffff 20px
+                #ffffff 0px,
+                #ffffff 25px,
+                #fff9fb 25px,
+                #fff9fb 50px
             );
         }
 
-        .header-stripe {
-            height: 8px;
-            background: linear-gradient(90deg, #000 50%, #fff 50%);
-            background-size: 40px 100%;
+        .header-bar {
+            height: 5px;
+            background: linear-gradient(90deg, var(--vs-pink-hot), #000, var(--vs-pink-hot));
         }
 
-        .btn-black {
-            background-color: var(--sephora-black);
+        .btn-vs {
+            background-color: var(--vs-black);
             color: white;
-            transition: all 0.3s ease;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 800;
+            letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--vs-black);
         }
 
-        .btn-black:hover {
-            background-color: #333;
-            transform: translateY(-2px);
+        .btn-vs:hover {
+            background-color: transparent;
+            color: var(--vs-black);
+            transform: translateY(-3px);
         }
 
-        .sephora-card {
-            border: 1px solid #e5e5e5;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(251, 111, 146, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(251, 111, 146, 0.2);
         }
 
-        /* Loading Wheel */
-        .wheel {
-            width: 50px;
-            height: 50px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--sephora-black);
+        .loader {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--vs-pink-hot);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .code-display {
-            letter-spacing: 4px;
-            background: #f9f9f9;
-            border: 2px dashed #ddd;
+        .shimmer-text {
+            background: linear-gradient(90deg, #000, #fb6f92, #000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
         }
-
-        .blur-text {
-            filter: blur(5px);
-            user-select: none;
-        }
-
-        .badge-exclusive {
-            background-color: var(--sephora-red);
-            color: white;
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 2px;
-            text-transform: uppercase;
-        }
+        @keyframes shimmer { to { background-position: 200% center; } }
     </style>
 </head>
-<body class="stripes-bg min-h-screen">
+<body class="vs-stripes-bg min-h-screen">
 
-    <!-- Header -->
-    <div class="header-stripe"></div>
-    <nav class="bg-white border-b border-gray-100 py-6 sticky top-0 z-50">
+    <div class="header-bar"></div>
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md border-b border-pink-50 py-5 sticky top-0 z-50">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="text-2xl font-[900] tracking-[0.2em] uppercase">SEPHORA</div>
-            <div class="flex items-center gap-4">
-                <span class="hidden sm:block text-[10px] font-bold tracking-widest text-gray-400 uppercase">Beauty Insider Rewards</span>
-                <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center">
-                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path></svg>
-                </div>
+            <div class="font-serif-vs text-xl tracking-[0.2em] uppercase font-bold">Victoria's Secret</div>
+            <div class="flex items-center gap-2">
+                <span class="text-[9px] font-bold bg-pink-500 text-white px-2 py-0.5 rounded">FEATURED</span>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 pt-12 pb-20 max-w-lg">
+    <main class="container mx-auto px-6 pt-12 pb-24 max-w-lg">
         
-        <div class="text-center mb-10">
-            <span class="badge-exclusive font-bold mb-4 inline-block">2026 Tester Program</span>
-            <h1 class="text-4xl font-extrabold tracking-tight mb-4">Claim Your <span class="text-red-600">$500</span> Reward</h1>
-            <p class="text-gray-500 text-sm leading-relaxed">Join our exclusive product tester panel. Get a $500 gift card to shop the latest in beauty, fragrance, and skincare.</p>
-        </div>
+        <header class="text-center mb-10">
+            <h1 class="font-serif-vs text-4xl font-bold mb-3">Rewards US</h1>
+            <p class="text-gray-400 text-sm tracking-wide">Enter the 2026 Angel Sweepstakes to claim your fashion credit.</p>
+        </header>
 
-        <!-- Reward Card -->
-        <div class="sephora-card bg-white rounded-none overflow-hidden relative">
-            <div class="relative h-64">
-                <img src="https://blinksky.azureedge.net/e278818e.png" alt="Sephora Gift Card" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/5"></div>
-            </div>
-            
-            <div class="p-8 text-center" id="mainActionArea">
-                <div class="flex items-center justify-center gap-2 mb-6">
-                    <span class="h-px w-8 bg-gray-200"></span>
-                    <span class="text-[11px] font-bold uppercase tracking-[3px] text-gray-400">Limited Availability</span>
-                    <span class="h-px w-8 bg-gray-200"></span>
+        <!-- Main Card -->
+        <div class="glass-card rounded-none overflow-hidden">
+            <div class="relative h-60 bg-pink-100 flex items-center justify-center p-6">
+                <!-- Winged Card Design -->
+                <div class="relative w-full h-full bg-gradient-to-br from-pink-50 to-pink-200 rounded-lg shadow-xl flex flex-col items-center justify-center border border-white/50">
+                    <div class="font-serif-vs text-gray-500 text-[10px] tracking-widest uppercase mb-1">Victoria's Secret</div>
+                    <div class="text-5xl font-serif-vs font-bold italic text-pink-600">$100</div>
+                    <div class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mt-2">Angel Reward Card</div>
+                    
+                    <!-- Decorative Wings -->
+                    <div class="absolute -left-4 top-1/2 -translate-y-1/2 opacity-20 text-4xl">🕊️</div>
+                    <div class="absolute -right-4 top-1/2 -translate-y-1/2 opacity-20 text-4xl scale-x-[-1]">🕊️</div>
                 </div>
-                
-                <h2 class="text-xl font-bold mb-8 uppercase tracking-wider">$500 E-Gift Card</h2>
-                
-                <button onclick="openModal()" class="btn-black w-full py-5 text-sm">
-                    Claim My Reward
+            </div>
+
+            <div class="p-8 text-center">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-1 shimmer-text">Score Your $100 Reward</h2>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Limited Access • Official Payout</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-8 text-[11px] font-bold uppercase tracking-widest text-left">
+                    <div class="bg-gray-50 p-3">
+                        <p class="text-gray-400 mb-1">Value</p>
+                        <p>$100.00 USD</p>
+                    </div>
+                    <div class="bg-gray-50 p-3">
+                        <p class="text-gray-400 mb-1">Status</p>
+                        <p class="text-green-600 font-bold">Verified</p>
+                    </div>
+                </div>
+
+                <!-- Open Modal Button -->
+                <button onclick="openModal()" class="btn-vs w-full py-5 text-sm shadow-lg">
+                    Claim Reward Now
                 </button>
-                
-                <p class="mt-6 text-[10px] text-gray-400 uppercase tracking-widest">No Purchase Necessary • 18+ Only</p>
             </div>
         </div>
 
-        <!-- Features -->
-        <div class="grid grid-cols-3 gap-4 mt-12 text-center">
-            <div>
-                <div class="text-lg font-bold">100%</div>
-                <div class="text-[9px] text-gray-400 uppercase font-bold tracking-tighter">Verified</div>
-            </div>
-            <div class="border-x border-gray-100">
-                <div class="text-lg font-bold">Instantly</div>
-                <div class="text-[9px] text-gray-400 uppercase font-bold tracking-tighter">Delivered</div>
-            </div>
-            <div>
-                <div class="text-lg font-bold">Secure</div>
-                <div class="text-[9px] text-gray-400 uppercase font-bold tracking-tighter">Encryption</div>
-            </div>
+        <div class="mt-12 flex justify-center gap-10 opacity-20 grayscale">
+            <span class="font-serif-vs font-bold">PINK</span>
+            <span class="font-serif-vs font-bold">BEAUTY</span>
         </div>
     </main>
 
-    <!-- Modal System -->
-    <div id="offerModal" class="fixed inset-0 z-[100] bg-black/60 hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md relative overflow-hidden">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black">✕</button>
+    <!-- Verification Modal -->
+    <div id="rewardModal" class="fixed inset-0 z-[100] bg-black/80 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-md relative border-t-4 border-pink-500">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-300 hover:text-black">✕</button>
             
-            <div class="p-8">
-                <!-- Step 1: Verification -->
-                <div id="step-loading" class="text-center py-10">
-                    <div class="wheel mx-auto mb-6"></div>
-                    <h3 class="text-xl font-bold mb-2 uppercase tracking-tight" id="statusText">Checking Stock...</h3>
-                    <p class="text-gray-400 text-xs" id="statusSubtext">Connecting to Sephora rewards database.</p>
-                    
-                    <div class="w-full bg-gray-100 h-1 mt-8">
-                        <div id="progressBar" class="bg-black h-full w-0 transition-all duration-500"></div>
+            <div class="p-10">
+                <!-- Fake Processing Step -->
+                <div id="step-loading" class="text-center py-6">
+                    <div class="loader mx-auto mb-8"></div>
+                    <h3 class="font-serif-vs text-2xl mb-2 italic">Securing $100 Credit</h3>
+                    <p class="text-gray-400 text-[10px] uppercase tracking-widest" id="statusText">Checking regional quota...</p>
+                    <div class="w-full bg-pink-50 h-1 mt-10">
+                        <div id="progressBar" class="bg-pink-500 h-full w-0 transition-all duration-700"></div>
                     </div>
                 </div>
 
-                <!-- Step 2: Final Step -->
+                <!-- Final Verification Step -->
                 <div id="step-final" class="hidden text-center">
                     <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-2 uppercase italic tracking-tighter">Reward Reserved!</h3>
-                    <p class="text-gray-500 text-sm mb-8">To finalize your $500 Sephora gift card, please complete the human verification below.</p>
+                    <h3 class="font-serif-vs text-3xl mb-4 italic">Congratulations!</h3>
+                    <p class="text-gray-500 text-sm mb-8 leading-relaxed">Your <strong>$100 Reward</strong> has been reserved for your IP. Please complete the security verification to unlock the final link.</p>
                     
-                    <div class="code-display p-4 mb-8">
-                        <span class="text-gray-400 font-mono text-lg">SEPH-</span>
-                        <span class="blur-text font-mono text-lg font-bold tracking-widest">XXXX-XXXX</span>
-                    </div>
-
-                    <button onclick="redirectToLocker()" class="btn-black w-full py-5 flex items-center justify-center gap-3">
-                        Verify & Reveal Code
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <!-- THE UPDATED LINK IS HERE -->
+                    <button onclick="redirectToLocker()" class="btn-vs w-full py-5 flex items-center justify-center gap-3">
+                        Unlock $100 Credit
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </button>
-                    
-                    <p class="text-[9px] text-gray-400 mt-6 leading-relaxed">
-                        Verification prevents automated bots from depleting our tester stock. 
-                        Usually takes less than 2 minutes.
-                    </p>
+                    <p class="text-[9px] text-gray-400 mt-6 uppercase tracking-widest">Bot verification is required to release the gift card.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 left-6 bg-black text-white px-4 py-3 text-[10px] font-bold uppercase tracking-widest opacity-0 transform translate-y-10 transition-all duration-500 pointer-events-none z-[200]">
-        New Reward Claimed: New York, NY
-    </div>
-
     <script>
-        const lockerLink = "https://trksy.org/aff_c?offer_id=346&aff_id=178108";
+        // YOUR SPECIFIC TRACKING LINK
+        const lockerLink = "https://linkthem.net/aff_c?offer_id=324&aff_id=178108";
 
         function openModal() {
-            document.getElementById('offerModal').classList.remove('hidden');
+            document.getElementById('rewardModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             startProcess();
         }
 
         function closeModal() {
-            document.getElementById('offerModal').classList.add('hidden');
+            document.getElementById('rewardModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
 
         function startProcess() {
-            const statusTexts = [
-                { main: "Validating Request...", sub: "Verifying your regional eligibility." },
-                { main: "Allocating Voucher...", sub: "Generating unique gift card ID." },
-                { main: "Finalizing...", sub: "Securing your $500 balance." }
+            const statusSteps = [
+                "Verifying Application...", 
+                "Connecting to Victoria's Secret Hub...", 
+                "Allocating Unique $100 ID..."
             ];
-            
-            let step = 0;
+            let i = 0;
             const interval = setInterval(() => {
-                if (step < statusTexts.length) {
-                    document.getElementById('statusText').innerText = statusTexts[step].main;
-                    document.getElementById('statusSubtext').innerText = statusTexts[step].sub;
-                    document.getElementById('progressBar').style.width = ((step + 1) * 33) + "%";
-                    step++;
+                if (i < statusSteps.length) {
+                    document.getElementById('statusText').innerText = statusSteps[i];
+                    document.getElementById('progressBar').style.width = ((i + 1) * 33) + "%";
+                    i++;
                 } else {
                     clearInterval(interval);
-                    showFinalStep();
+                    document.getElementById('step-loading').classList.add('hidden');
+                    document.getElementById('step-final').classList.remove('hidden');
+                    gsap.from("#step-final", { opacity: 0, scale: 0.9, duration: 0.5 });
                 }
             }, 1200);
         }
 
-        function showFinalStep() {
-            document.getElementById('step-loading').classList.add('hidden');
-            document.getElementById('step-final').classList.remove('hidden');
-            gsap.from("#step-final", { opacity: 0, y: 20, duration: 0.5 });
-        }
-
         function redirectToLocker() {
+            // This function takes the user directly to your provided URL
             window.location.href = lockerLink;
         }
-
-        // Fake Social Proof Toasts
-        const locations = ["Los Angeles, CA", "Miami, FL", "Chicago, IL", "Houston, TX", "London, UK", "Toronto, CA"];
-        function showToast() {
-            const toast = document.getElementById('toast');
-            const loc = locations[Math.floor(Math.random() * locations.length)];
-            toast.innerText = `Reward Claimed: ${loc}`;
-            
-            toast.style.opacity = "1";
-            toast.style.transform = "translateY(0)";
-            
-            setTimeout(() => {
-                toast.style.opacity = "0";
-                toast.style.transform = "translateY(10px)";
-            }, 3000);
-        }
-
-        setInterval(showToast, 8000);
-        setTimeout(showToast, 3000);
     </script>
 </body>
 </html>
